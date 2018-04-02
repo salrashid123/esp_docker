@@ -1,0 +1,28 @@
+type: google.api.Service
+config_version: 3
+
+name: api.endpoints.espdemo-199923.cloud.goog
+title: TodoMVC API
+apis:
+- name: todo.ToDoService
+
+usage:
+  rules:
+  - selector: "*"
+    allow_unregistered_calls: true   
+  - selector: todo.ToDoService.ListToDo
+    allow_unregistered_calls: true
+
+authentication:
+  providers:
+  - id: google_id_token
+
+    authorization_url: ''
+    audiences: '764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com'
+    issuer: 'https://accounts.google.com'
+    jwks_uri: 'https://www.googleapis.com/oauth2/v1/certs'
+
+  rules:
+  - selector: "*"
+    requirements:
+      - provider_id: google_id_token
