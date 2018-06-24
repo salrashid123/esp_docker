@@ -13,7 +13,7 @@ This repo demonstrates an end-to-end sample of running ESP on Docker but also pr
 - Running gRPC with HTTP Transcoding
 - Using gcloud Application Default Credentials to authenticate.
 
-The article first deploys a backend implemented as pure REST and its corresponding client.  Then a gRPC Server which includes provisions for HTTP Transcoding. 
+The article first deploys a backend implemented as pure REST and its corresponding client.  Then a gRPC Server which includes provisions for HTTP Transcoding.
 This sample will allow you to call the backend via HTTP or gRPC.  Both samples demonstrates how to acquire a Bearer token for google authentication.
 
 Finally, the HTTP and gRPC backends are protected by Google Authentication which means each call must have a google-issued ID token in the HEADER.
@@ -36,17 +36,17 @@ Lets get started.
 ### Clone the Repo
 
 ```
-git clone https://github.com/salrashid123/esp_docker.git 
+git clone https://github.com/salrashid123/esp_docker.git
 ```
 
 ### Create a GCP cloud project
- 
+
  If you already have one handy, thats fine.  In the examples below, my project is: ```espdemo-199923```
 
 
 ### Create a Service Account Key and download it.
 
-On the GCP Cloud console, goto 
+On the GCP Cloud console, goto
 - "IAM & Admin" >> "Service Accounts" >> "Create Service Account".  You can call the service account anyting (I called it ```espsvc```).  
 - Select "Furnish new Public Key" and select JSON.
 - Assign the "Service Management >> Service Controller" role to this account.
@@ -61,7 +61,7 @@ The following sections details how to stand up a HTTP-only endpoint and ESP
 - ```cd esp_docker/http```
 - Edit ```http/openapi.yaml```
     - Replace ```YOUR_PROJECT``` with your projectID
-    - in my case, the value is: ```host: api.endpoints.espdemo-199923.cloud.goog``` 
+    - in my case, the value is: ```host: api.endpoints.espdemo-199923.cloud.goog```
 
 
 then
@@ -92,7 +92,7 @@ pip install -r requirements.txt
 
 ```
 
-$ python http_server.py 
+$ python http_server.py
  * Running on http://0.0.0.0:50051/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
@@ -137,7 +137,7 @@ source env/bin/activate
 then run the client:
 
 ```
-$ python http_client.py 
+$ python http_client.py
 
 ++++++++++++++ mint and verify id_token for current user ++++++++++++++++
 id_token: <REDACTED>
@@ -148,7 +148,7 @@ id_token: <REDACTED>
 
 -------------- put
 {
-    "id": 111, 
+    "id": 111,
     "task": "some task"
 }
 
@@ -156,7 +156,7 @@ id_token: <REDACTED>
 {
     "items": [
         {
-            "id": 111, 
+            "id": 111,
             "task": "some task"
         }
     ]
@@ -164,7 +164,7 @@ id_token: <REDACTED>
 
 -------------- get
 {
-    "id": 111, 
+    "id": 111,
     "task": "some task"
 }
 
@@ -247,8 +247,11 @@ git clone https://github.com/googleapis/googleapis.git
 
 - Prepare ```api_descriptor.pb``` based on your .proto:
 
+- ``` git clone https://github.com/googleapis/googleapis.git ```
+
+
 ```bash
-python -m- grpc_tools.protoc \
+python -m grpc_tools.protoc \
     --include_imports \
     --include_source_info \
     --proto_path=.:googleapis \
@@ -270,11 +273,11 @@ Then
 gcloud endpoints services deploy api_descriptor.pb api_config.yaml
 ```
 
-You should see two configurations  if you deployed the HTTP sample above 
+You should see two configurations  if you deployed the HTTP sample above
 ```
 $ gcloud endpoints configs list --service=api.endpoints.espdemo-199923.cloud.goog
 CONFIG_ID     SERVICE_NAME
-2018-04-02r0  api.endpoints.espdemo-199923.cloud.goog   << gRPC 
+2018-04-02r0  api.endpoints.espdemo-199923.cloud.goog   << gRPC
 2018-04-01r0  api.endpoints.espdemo-199923.cloud.goog   << HTTP
 ```
 
@@ -292,9 +295,9 @@ python grpc_server.py
 the gRPC API server is listening on ```:50001```
 
 
-#### Run the ESP docker contianer
+#### Run the ESP docker container
 
-Now run the ESP container and spceify:
+Now run the ESP container and specify:
 
 - service name
 - version
@@ -323,24 +326,24 @@ docker run   \
 cd esp_docker/grpc
 source env/bin/activate
 
-$ python grpc_client.py 
+$ python grpc_client.py
 
----- LIST ---- 
----- CREATE ---- 
+---- LIST ----
+---- CREATE ----
 id: 2268
 task: "some task"
 
----- LIST ---- 
+---- LIST ----
 id: 2268
 task: "some task"
 
----- GET  ---- 
+---- GET  ----
 id: 2268
 task: "some task"
 
----- DELETE ---- 
+---- DELETE ----
 
----- LIST ---- 
+---- LIST ----
 ```
 
 Gives the output:
@@ -348,14 +351,14 @@ Gives the output:
 - API Server:
 
 ```
-$ python grpc_server.py 
+$ python grpc_server.py
 starting server [::]:50051
-ListToDo called: 
+ListToDo called:
 CreateToDo called: 2268
-ListToDo called: 
+ListToDo called:
 GetToDo called: 2268
 DeleteToDo called: 2268
-ListToDo called: 
+ListToDo called:
 ```
 
 - ESP Proxy:
@@ -384,7 +387,7 @@ pip install -r requirements.txt
 then
 
 ```
-$ python http_client.py 
+$ python http_client.py
 ++++++++++++++ mint and verify id_token for current user ++++++++++++++++
 id_token: << redactd>>
 -------------- list
@@ -407,13 +410,13 @@ gives output:
 - gRPC server:
 
 ```
-ListToDo called: 
-ListToDo called: 
+ListToDo called:
+ListToDo called:
 CreateToDo called: 111
-ListToDo called: 
+ListToDo called:
 GetToDo called: 111
 DeleteToDo called: 111
-ListToDo called: 
+ListToDo called:
 ```
 
 - ESP Proxy:
