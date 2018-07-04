@@ -447,7 +447,7 @@ So if you're running this on your laptop, first edit ```/etc/hosts``` and set
 127.0.0.1 main.esodemoapp2.com
 ```
 
-Then lets setup the cert and compile for tanscoding:
+Then lets setup the cert and compile for transcoding:
 
 ```
 cd esp_docker/grpc
@@ -516,7 +516,7 @@ soruce env/bin/activate
 python grpc_server.py
 ```
 
-- gRPC Client:
+#### gRPC Client
 
 Go to ```esp_docker/grpc```, then enable SSL and set the CA Path. (eg, comment insecure_channel and uncomment secure_channel)
 ```
@@ -536,7 +536,7 @@ python grpc_client.py
 ```
 
 
-- REST Client
+#### HTTP Client
 
 Go to ```esp_docker/http```, then enable SSL and set the CA Path. (eg, comment insecure_channel and uncomment secure_channel).  Remember to set
 the ```verify=``` parameter on each request so you dont' see cert warning
