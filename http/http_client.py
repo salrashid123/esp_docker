@@ -18,7 +18,17 @@ scopes=['https://www.googleapis.com/auth/userinfo.email']
 credentials, project = google.auth.default(scopes=scopes)
 authed_http = google_auth_httplib2.AuthorizedHttp(credentials)
 
-_HOST = 'http://localhost:8080'
+
+# for non-SSL to grpC Server direct
+#_HOST = 'http://main.esodemoapp2.com:8080'
+
+# for non-SSL to ESP http: 8080
+_HOST = 'http://main.esodemoapp2.com:8080'
+
+# for SSL to ESP
+#_HOST = 'https://main.esodemoapp2.com:8082'
+# note: to use SSL to ESP, add in verify= for python requests pointing to CA that signed the cert:
+#response = requests.get(_HOST+  '/todos', headers={'Authorization': 'Bearer ' + idt},  verify='../certs/ssl_certs/CA_crt.pem')
 
 print "++++++++++++++ mint and verify id_token for current user ++++++++++++++++"
 # "aud": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
@@ -31,7 +41,7 @@ print 'id_token: ' + idt
 
 
 print '-------------- list'
-response = requests.get(_HOST+  '/todos', headers={'Authorization': 'Bearer ' + idt})
+response = requests.get(_HOST+  '/todos', headers={'Authorization': 'Bearer ' + idt},  verify='../certs/ssl_certs/CA_crt.pem')
 print response.text
 
 

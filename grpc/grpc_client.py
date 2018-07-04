@@ -22,9 +22,17 @@ import requests
 _TIMEOUT_SECONDS = 10
 
 def run():
-  #channel = grpc.insecure_channel('localhost:50051')
+  
+  # for nonSSL to ESP port http2: 8081
+  #channel = grpc.insecure_channel('main.esodemoapp2.com:8081')
 
-  channel = grpc.insecure_channel('localhost:8081')
+  # for nonSSL direct to GRPC server port 50051
+  channel = grpc.insecure_channel('main.esodemoapp2.com:50051')
+
+  # for SSL to ESP (port: 8082)
+  #ssl_credentials = grpc.ssl_channel_credentials(open('../certs/ssl_certs/CA_crt.pem').read())
+  #channel = grpc.secure_channel('main.esodemoapp2.com:8082', ssl_credentials)
+  
   stub = task_pb2_grpc.ToDoServiceStub(channel)
   
   metadata = []
@@ -33,6 +41,7 @@ def run():
   g_request = google.auth.transport.requests.Request()
   credentials.refresh(g_request)
   auth_token = credentials.id_token
+  print(auth_token)
 
   api_key = None
 
