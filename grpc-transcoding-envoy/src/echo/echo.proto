@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package echo;
+
+import "google/api/annotations.proto";
+
+
+service EchoServer {
+  rpc SayHello (EchoRequest) returns (EchoReply) {
+    option (google.api.http) = {
+      get: "/echo/{name}"
+    };      
+  }
+}
+
+message EchoRequest {
+  string name = 1;
+}
+
+message EchoReply {
+  string message = 1;
+}
