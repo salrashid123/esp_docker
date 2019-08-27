@@ -111,7 +111,7 @@ Run the container as follows.  Remember to replace
 - version
 - servcie_account JSON filename and relative reference to the folder
 
-Note the bacend is pointing to the HTTP endpoint of your api server
+Note the backend is pointing to the HTTP endpoint of your api server
 
 ```
 docker run   \
